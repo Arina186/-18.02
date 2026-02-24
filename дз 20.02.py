@@ -113,7 +113,7 @@ while is_continue:
                 mid = (left + right) // 2
                 if numbers[mid] == digit:
                     continue
-                if numbers[left] <= numbers[mid]: # левая часть отсортирована
+                if numbers[left] <= numbers[mid]:  # левая часть отсортирована
                     if numbers[left] <= digit < numbers[mid]:
                         right = mid - 1
                     else:
@@ -131,25 +131,26 @@ while is_continue:
 
     elif user_choice == '7':
         from random import randint
+
         rows_number = int(input("Enter rows number: "))
         columns_number = int(input("Enter columns number: "))
         if rows_number != columns_number:
             print("Только квадратные матрицы!")
         else:
-           matrix = []
-           for r_num in range(0, rows_number):
-              empty_row = []
-              matrix.append(empty_row)
-              for c_num in range(0, columns_number):
-                  elem = randint(0, 100)
-                  matrix[r_num].append(elem)
-              print(matrix[r_num])
-           secondary_sum = 0
-           for r_num in range(0, rows_number):
-              formula = columns_number - 1 - r_num
-              secondary_sum += matrix[r_num][formula]
-           print(f"Sum of a secondary diagonal is: {secondary_sum}")
-           print(sep="\n")
+            matrix = []
+            for r_num in range(0, rows_number):
+                empty_row = []
+                matrix.append(empty_row)
+                for c_num in range(0, columns_number):
+                    elem = randint(0, 100)
+                    matrix[r_num].append(elem)
+                print(matrix[r_num])
+            secondary_sum = 0
+            for r_num in range(0, rows_number):
+                formula = columns_number - 1 - r_num
+                secondary_sum += matrix[r_num][formula]
+            print(f"Sum of a secondary diagonal is: {secondary_sum}")
+            print(sep="\n")
 
     elif user_choice == '8':
         string = "спаспачвЕНЁнпгртроыуыу"
@@ -159,9 +160,31 @@ while is_continue:
         consonants_count = 0
         for char in string:
             if char in vowels:
-                vowels_count +=1
+                vowels_count += 1
             elif char in consonants:
-                consonants_count +=1
+                consonants_count += 1
         print(f"Количество гласных: {vowels_count}")
         print(f"Количество согласных: {consonants_count}")
         print(sep="\n")
+
+    elif user_choice == '9':
+        number = input("Введите число: ")
+        if number.isdigit():
+            number = int(number)
+            if number < 2:
+                print("1 не является простым числом!")
+            else:
+                is_prime = True
+                i = 2
+                while i * i <= number and is_prime:
+                    if number % i == 0:
+                        is_prime = False
+                    i += 1 #В отличие от цикла for, который сам переходит к следующему числу,
+                # цикл while будет работать бесконечно с одним и тем же значением, если мы не будем его менять вручную
+                if is_prime:
+                    print(f"Число {number} - простое")
+                else:
+                    print(f"Число {number} - не простое")
+                print(sep="\n")
+
+    
