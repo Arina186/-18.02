@@ -60,21 +60,43 @@ while is_continue:
         print(sep="\n")
     elif user_choice == '4':
         digits = [4, 5, 56, 34, 3, 1, 2, 5, 4, 67, 98, 66, 33, 44, 33, 4, 1, 90]
-        if len(digits) == len(set(digits)): # set(digits) уберет дубликаты. если длины не равны, значит есть дубликаты
+        print(f"Список чисел: " ,digits)
+        if len(digits) == len(set(digits)):  # set(digits) уберет дубликаты. если длины не равны, значит есть дубликаты
             print("Все числа в списке уникальны")
         else:
             print("В списке есть повторяющиеся элементы")
-            counts = {} # создается пустой словарь, чтобы хранить какое число скока раз встретилось
+            counts = {}  # создается пустой словарь, чтобы хранить какое число скока раз встретилось
             for dig in digits:
                 if dig in counts:
-                    counts[dig] += 1 # если число уже встречалось
+                    counts[dig] += 1  # если число уже встречалось
                 else:
-                    counts[dig] = 1 # если число встр впервые
+                    counts[dig] = 1  # если число встр впервые
             print("Повторяющиеся элементы: ")
             for dig, count in counts.items():
                 if count > 1:
                     print(f"Число {dig} встречается {count} раза")
             print(sep="\n")
 
-
+    elif user_choice == '5':
+        numbers = [5, 7, 16, 23, 28, 31, 38, 42, 46, 53, 57, 74, 81, 85, 87]
+        print("Список чисел: ", numbers)
+        digit = input("Введите число из списка, которое хотели бы отобразить: ")
+        if digit.isdigit():
+            digit = int(digit)
+            left = 0
+            right = len(numbers) - 1
+            attempts = 0
+            mid = 0
+            while left <= right and numbers[mid] != digit:
+                attempts += 1
+                mid = (left + right) // 2
+                if numbers[mid] > digit:
+                    right = mid - 1
+                elif numbers[mid] < digit:
+                    left = mid + 1
+            if numbers[mid] == digit:
+                print(f"Число {digit} найдено за {attempts} попыток")
+            else:
+                print(f"Число {mid} не найдено в списке")
+            print(sep="\n")
 
