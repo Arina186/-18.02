@@ -33,3 +33,18 @@ while is_continue:
             print(f"Маша накопит нужную сумму за {days} дней.")
         else:
             print("Enter only integer numbers!")
+        print(sep="\n")
+
+    elif user_choice == '2':
+        numbers = input("Сколько чисел Фибоначчи вывести? ")
+        if numbers.isdigit():
+            numbers = int(numbers)
+            a = 1 # Первое число
+            b = 1 # Второе число
+            count = 0
+            print("Последовательность: ", end=" ")
+            while count < numbers:
+                print(a, end=" ") # end чтобы числа выводились в одну строку
+                a, b = b, a + b
+                count += 1
+        print(sep="\n")
