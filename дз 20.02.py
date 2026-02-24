@@ -48,3 +48,12 @@ while is_continue:
                 a, b = b, a + b
                 count += 1
         print(sep="\n")
+
+    elif user_choice == '3':
+        number = [3, 5, 12, 6, 25, 4, 9, 17, 76, 1]
+        total_sum = sum(number)
+        min_value = min(number)
+        max_value = max(number)
+        print(f"Сумма: {total_sum}")
+        print(f"Минимум: {min_value}")
+        print(f"Максимум: {max_value}")
