@@ -60,7 +60,7 @@ while is_continue:
         print(sep="\n")
     elif user_choice == '4':
         digits = [4, 5, 56, 34, 3, 1, 2, 5, 4, 67, 98, 66, 33, 44, 33, 4, 1, 90]
-        print(f"Список чисел: " ,digits)
+        print(f"Список чисел: ", digits)
         if len(digits) == len(set(digits)):  # set(digits) уберет дубликаты. если длины не равны, значит есть дубликаты
             print("Все числа в списке уникальны")
         else:
@@ -97,6 +97,34 @@ while is_continue:
             if numbers[mid] == digit:
                 print(f"Число {digit} найдено за {attempts} попыток")
             else:
-                print(f"Число {mid} не найдено в списке")
+                print(f"Число {digit} не найдено в списке")
             print(sep="\n")
 
+    elif user_choice == '6':
+        numbers = [6, 7, 8, 9, 10, 1, 2, 3, 4, 5]
+        print("Список чисел: ", numbers)
+        digit = input("Введите число из списка, которое хотели бы отобразить: ")
+        if digit.isdigit():
+            digit = int(digit)
+            left = 0
+            right = len(numbers) - 1
+            mid = 0
+            while left <= right and numbers[mid] != digit:
+                mid = (left + right) // 2
+                if numbers[mid] == digit:
+                    continue
+                if numbers[left] <= numbers[mid]: # левая часть отсортирована
+                    if numbers[left] <= digit < numbers[mid]:
+                        right = mid - 1
+                    else:
+                        left = mid + 1
+                else:
+                    if numbers[mid] < digit <= numbers[right]:
+                        left = mid + 1
+                    else:
+                        right = mid - 1
+            if numbers[mid] == digit:
+                print(f"Число {digit} найдено на {mid} позиции")
+            else:
+                print(f"Число {digit} не найдено в списке")
+            print(sep="\n")
