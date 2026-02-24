@@ -179,7 +179,7 @@ while is_continue:
                 while i * i <= number and is_prime:
                     if number % i == 0:
                         is_prime = False
-                    i += 1 #В отличие от цикла for, который сам переходит к следующему числу,
+                    i += 1  # В отличие от цикла for, который сам переходит к следующему числу,
                 # цикл while будет работать бесконечно с одним и тем же значением, если мы не будем его менять вручную
                 if is_prime:
                     print(f"Число {number} - простое")
@@ -187,4 +187,16 @@ while is_continue:
                     print(f"Число {number} - не простое")
                 print(sep="\n")
 
-    
+    elif user_choice == '10':
+        number = input("Введите предел N: ")
+        if number.isdigit():
+            number = int(number)
+            print(f"Совершенные числа до {number}: ")
+            for i in range(1, number + 1):
+                summa = 0
+                for j in range(1, i):  # проверяет все числа которые меньше текущего i
+                    if i % j == 0: # ищем делители
+                        summa += j
+                if summa == i:
+                    print(f"Число {i} - совершенное")
+    print(sep="\n")
