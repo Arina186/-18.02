@@ -217,4 +217,19 @@ while is_continue:
                 print(f"Число {number} - НЕ число Армстронга")
         print(sep="\n")
 
+    elif user_choice == '12':
+        number = input("Введите число: ")
+        if number.isdigit():
+            number = int(number)
+            original_number = number #чтобы вывести в консоле изначально введенное число, а не преобразованную единицу
+            steps = 0
+            while number != 1:
+                if number % 2 == 0:
+                    number //= 2
+                    steps += 1
+                else:
+                    number = number*3+1
+                    steps += 1
+            print(f"Для числа {original_number} нужно {steps} шагов, чтобы получить 1")
+
 
