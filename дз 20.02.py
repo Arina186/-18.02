@@ -199,4 +199,22 @@ while is_continue:
                         summa += j
                 if summa == i:
                     print(f"Число {i} - совершенное")
-    print(sep="\n")
+                else:
+                    print("Совершенных чисел нет до указанного предела!")
+        print(sep="\n")
+
+    elif user_choice == '11':
+        number = input("Введите число N: ")
+        if number.isdigit():
+            number = int(number)
+            power =len(str(number))
+            summa = 0
+            for digit in str(number):  #str(number) превратит число 153 в '1', '5', '3'
+                summa += int(digit)**power
+            if summa == number:
+                print(f"Число {number} - число Армстронга")
+            else:
+                print(f"Число {number} - НЕ число Армстронга")
+        print(sep="\n")
+
+
