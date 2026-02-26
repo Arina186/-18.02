@@ -19,7 +19,7 @@ while is_continue:
                 print("Введите целое число!")
 
 
-    user_choice = input("Enter action number: ")
+    user_choice = get_int_input("Enter action number: ")
     if user_choice == '1':
         from random import randint
 
@@ -46,7 +46,7 @@ while is_continue:
         print(f" \nВаша матрица:")
         show_matrix(result)
 
-    user_choice = input("Enter action number: ")
+    user_choice = get_int_input("Enter action number: ")
     if user_choice == '2':
         from random import randint
 
