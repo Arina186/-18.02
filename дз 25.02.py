@@ -151,3 +151,46 @@ while is_continue:
         show_matrix(result)
         summ, share = sum_and_proportion_matrix(result)
         print(f"Сумма элементов матрицы: {summ}, доля: {share}")
+
+    elif user_choice == 4:
+        from random import randint
+
+
+        def generate_random_matrix(rows_count, columns_count):
+            matrix = []
+            for row in range(0, rows_count):
+                matrix.append([])
+                for col in range(0, columns_count):
+                    matrix[row].append(randint(0, 50))
+
+            return matrix
+
+
+        def show_matrix(matrix):
+            for row in matrix:
+                print(row)
+
+            return matrix
+
+
+        def multiplication_col_k(matrix, special_column):
+            rows = len(matrix)
+            columns = len(matrix[0])
+
+            for i in range(rows):
+                multiplier = matrix[i][special_column]
+                for j in range(columns):
+                    matrix[i][j] *= multiplier
+
+            return matrix
+
+
+        rows_number = get_int_input("Enter rows number: ")
+        columns_number = get_int_input("Enter columns number: ")
+        special_column = get_int_input("Enter any of the columns(0,1,2): ")
+        result = generate_random_matrix(rows_number, columns_number)
+        print(f" \nВаша матрица:")
+        show_matrix(result)
+        multip = multiplication_col_k(result,special_column)
+        print("Результат перемножения k столбца на все столбцы: ")
+        show_matrix(multip)
