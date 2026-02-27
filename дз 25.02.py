@@ -40,6 +40,7 @@ while is_continue:
 
             return matrix
 
+
         rows_number = get_int_input("Enter rows number: ")
         columns_number = get_int_input("Enter columns number: ")
         result = generate_random_matrix(rows_number, columns_number)
@@ -70,23 +71,25 @@ while is_continue:
         def min_value_matrix(matrix):
             # берем первый элемент 1 строки матрицы как начальный минимум
             minimum = matrix[0][0]
-            min_row_index, min_col_index = 0, 0  #для отображения индекса найденного минимума
-            for r_ind, row in enumerate(matrix):  #enumerate возвращает индекс и само значение
+            min_row_index, min_col_index = 0, 0  # для отображения индекса найденного минимума
+            for r_ind, row in enumerate(matrix):  # enumerate возвращает индекс и само значение
                 for c_ind, item in enumerate(row):
-                    if item<minimum:
+                    if item < minimum:
                         minimum = item
                         min_row_index = r_ind
                         min_col_index = c_ind
 
-            return minimum, (min_row_index, min_col_index)     # взяв в скобки мы сгруппировали неск значений в кортеж
-# если не возьмем, то придется ниже брать 3 переменные (min_value, r_index, c_index)вместо 2-х (min_value, min_index)
+            return minimum, (min_row_index, min_col_index)  # взяв в скобки мы сгруппировали неск значений в кортеж
+
+
+        # если не возьмем, то придется ниже брать 3 переменные (min_value, r_index, c_index)вместо 2-х (min_value, min_index)
 
         def max_value_matrix(matrix):
             maximum = matrix[0][0]
             max_row_index, max_col_index = 0, 0
             for r_ind, row in enumerate(matrix):
                 for c_ind, item in enumerate(row):
-                    if item>maximum:
+                    if item > maximum:
                         maximum = item
                         max_row_index = r_ind
                         max_col_index = c_ind
@@ -124,6 +127,7 @@ while is_continue:
 
             return matrix
 
+
         #  сумма всех элементов и #какую долю(процент) в общей сумме составляет сумма элементов кажд столбцакакую долю(процент) в общей сумме составляет сумма элементов кажд столбца
         def sum_and_proportion_matrix(matrix):
             summa = 0
@@ -138,8 +142,8 @@ while is_continue:
                 column_sum = 0
                 for i in range(rows):
                     column_sum += matrix[i][j]
-                share.append((column_sum/summa)*100)
-                #через равно на каждой итерации цикла старое значение будет стираться
+                share.append((column_sum / summa) * 100)
+                # через равно на каждой итерации цикла старое значение будет стираться
 
             return summa, share
 
@@ -178,7 +182,7 @@ while is_continue:
             columns = len(matrix[0])
 
             for i in range(rows):
-                multiplier = matrix[i][special_column-1]
+                multiplier = matrix[i][special_column - 1]
                 for j in range(columns):
                     matrix[i][j] *= multiplier
 
@@ -191,7 +195,7 @@ while is_continue:
         result = generate_random_matrix(rows_number, columns_number)
         print(f" \nВаша матрица:")
         show_matrix(result)
-        multip = multiplication_col_k(result,special_column)
+        multip = multiplication_col_k(result, special_column)
         print("Результат перемножения k столбца на все столбцы: ")
         show_matrix(multip)
 
@@ -219,7 +223,7 @@ while is_continue:
         def addition_row_l(matrix, special_row):
             rows = len(matrix)
             columns = len(matrix[0])
-            target_row = matrix[special_row-1]
+            target_row = matrix[special_row - 1]
 
             new_matrix = []
             for i in range(rows):
@@ -240,3 +244,49 @@ while is_continue:
         new_matrix = addition_row_l(result, special_row)
         print("Результат сложения L строки с каждой строкой: ")
         show_matrix(new_matrix)
+
+    elif user_choice == 6:
+        from random import randint
+
+
+        def generate_random_matrix(rows_count, columns_count):
+            matrix = []
+            for row in range(0, rows_count):
+                matrix.append([])
+                for col in range(0, columns_count):
+                    matrix[row].append(randint(0, 50))
+
+            return matrix
+
+
+        def show_matrix(matrix):
+            for row in matrix:
+                print(row)
+
+            return matrix
+
+
+        def col_have_digit(matrix, h_digit):
+            rows = len(matrix)
+            columns = len(matrix[0])
+            has_h_digit = []
+            no_h_digit = []
+
+            for j in range(columns):
+                if any(matrix[i][j] == h_digit for i in range(rows)):
+                    has_h_digit.append(j)
+                else:
+                    no_h_digit.append(j)
+
+            return has_h_digit, no_h_digit
+
+
+        rows_number = get_int_input("Enter rows number: ")
+        columns_number = get_int_input("Enter columns number: ")
+        h_digit = get_int_input("Enter digit H: ")
+        result = generate_random_matrix(rows_number, columns_number)
+        print(f" \nВаша матрица:")
+        show_matrix(result)
+        yes, no = col_have_digit(result, h_digit)
+        print(f"Столбцы с числом H:{yes} ")
+        print(f"Столбцы без числа H:{no}")
