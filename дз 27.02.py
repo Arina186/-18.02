@@ -33,7 +33,7 @@ while is_continue:
             # принято возвращать -1, если функция должна вернуть индекс, но не смогла найти
             mid = (left + right) // 2
             if numbers[mid] == goal:
-                return mid # возвращает индекс, а если было бы return numbers[mid] - вернуло бы само значение из списка
+                return mid  # возвращает индекс, а если было бы return numbers[mid] - вернуло бы само значение из списка
             elif numbers[mid] > goal:
                 return binary_search(numbers, left, mid - 1, goal)
             else:
@@ -43,7 +43,7 @@ while is_continue:
         numbers = [1, 5, 7, 16, 23, 28, 31, 38, 42]
         print("List of numbers: ", numbers)
         goal = get_int_input("Enter the number from the list to be depicted: ")
-        result = binary_search(numbers, 0, len(numbers) - 1, goal) # задаются лев и правая границы
+        result = binary_search(numbers, 0, len(numbers) - 1, goal)  # задаются лев и правая границы
         if result != -1:
             print(f"Element {goal} has an index: {result}")
         else:
@@ -57,12 +57,15 @@ while is_continue:
                 number //= 2
             return binary_number
 
+
         number = get_int_input("Enter a decimal number: ")
         result = from_decimal_to_binary(number)
         print(f"Your number {number} from decimal to binary system: {result}")
 
     elif user_choice == 3:
         import math
+
+
         def prime_number(num):
             if num <= 1:
                 return False
@@ -71,9 +74,9 @@ while is_continue:
             if num % 2 == 0:
                 return False
             limit = int(math.sqrt(num)) + 1
-            for i in range(3, limit, 2):  #означает: «начни с 3, иди до лимита с шагом 2».
-    #То есть мы проверяем делители: 3, 5, 7, 9, 11...
-    # четные не проверяем, потому что в самом начале функции мы уже проверили число на четность
+            for i in range(3, limit, 2):  # означает: «начни с 3, иди до лимита с шагом 2».
+                # То есть мы проверяем делители: 3, 5, 7, 9, 11...
+                # четные не проверяем, потому что в самом начале функции мы уже проверили число на четность
                 if num % i == 0:
                     return False
             return True
@@ -88,12 +91,14 @@ while is_continue:
     elif user_choice == 4:
         def gcd(number_one, number_two):
             while number_two:
-                number_one, number_two = number_two, number_one%number_two
+                number_one, number_two = number_two, number_one % number_two
             return number_one
             #  a = 15, b = 10.
-        #Проверяем while b (10 — это не ноль, заходим в цикл).
-        #Считаем остаток: 15 % 10 = 5.
-        #переменные меняются: a становится равным b (10), а b становится равным остатку (5).
+
+
+        # Проверяем while b (10 — это не ноль, заходим в цикл).
+        # Считаем остаток: 15 % 10 = 5.
+        # переменные меняются: a становится равным b (10), а b становится равным остатку (5).
         # Проверяем while b (5 — это не ноль).
         # Считаем остаток: 10 % 5 = 0 и т д
 
@@ -104,6 +109,8 @@ while is_continue:
 
     elif user_choice == 5:
         shift = 4
+
+
         def caesar_encyption(message, shift):
             encrypted_message = ""
             for char in message:
@@ -113,12 +120,13 @@ while is_continue:
                     shifted_char = chr((ord(char) - start + shift) % 26 + start)
                     encrypted_message += shifted_char
                 else:
-                    encrypted_message += char # Символы и пробелы оставляем как есть
+                    encrypted_message += char  # Символы и пробелы оставляем как есть
             return encrypted_message
 
 
         def decrypt_message(message, shift):
             return caesar_encyption(message, -shift)
+
 
         decision = get_int_input("What do you want to do? - (1 - encrypt, 2 - decrypt):  ")
         message = input("Enter your message: ")
@@ -129,36 +137,50 @@ while is_continue:
         else:
             print(f"Invalid input. Try again!")
 
+    elif user_choice == 6:
+        letters = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
 
 
+        def vigenere_encryption(text, key):
+            result = ""
+            key_index = 0   # какую букву ключа мы сейчас используем
+            for char in text.lower():
+                if char in letters:
+                    char_index = letters.find(char) # Находим индекс (с 0) буквы текста в алфавите
+                    current_key_char = key[key_index % len(key)].lower()
+                    # Находим индекс буквы ключа, % len(key) заставляет ключ повторяться по кругу
+                    shift = letters.find(current_key_char)
+                    new_index = (char_index + shift) % len(letters)
+                    result += letters[new_index]
+                    key_index += 1
+                else:
+                    result += char
+            return result
 
 
+        def decrypt(text, key):
+            result = ""
+            key_index = 0
+            for char in text.lower():
+                if char in letters:
+                    char_index = letters.find(char)
+                    current_key_char = key[key_index % len(key)].lower()
+                    shift = letters.find(current_key_char)
+                    new_index = (char_index - shift) % len(letters)
+                    result += letters[new_index]
+                    key_index += 1
+                else:
+                    result += char
+            return result
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        print("--- Программа: Шифр Виженера ---")
+        text = input("Enter your message: ")
+        decision = get_int_input("What do you want to do? - (1 - encrypt, 2 - decrypt):  ")
+        key_word = input("Enter your key word: ")
+        if decision == 1:
+            print(f"Encrypted message : {vigenere_encryption(text, key_word)}")
+        elif decision == 2:
+            print(f"Decrypted message : {decrypt(text, key_word)}")
+        else:
+            print(f"Invalid input. Try again!")
