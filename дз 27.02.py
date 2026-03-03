@@ -1,3 +1,5 @@
+from wsgiref.util import shift_path_info
+
 is_continue = True
 while is_continue:
     print(" 1 - Рекурсия. Бинарный поиск\n"
@@ -99,6 +101,49 @@ while is_continue:
         number_two = get_int_input("Enter the second number: ")
         result = gcd(number_one, number_two)
         print(f"GCD of your numbers is: {result}")
+
+    elif user_choice == 5:
+        shift = 4
+        def caesar_encyption(message, shift):
+            encrypted_message = ""
+            for char in message:
+                if char.isalpha():
+                    start = ord("A") if char.isupper() else ord("a")
+                    # Сдвигаем внутри диапазона 26 букв алфавита
+                    shifted_char = chr((ord(char) - start + shift) % 26 + start)
+                    encrypted_message += shifted_char
+                else:
+                    encrypted_message += char # Символы и пробелы оставляем как есть
+            return encrypted_message
+
+
+        def decrypt_message(message, shift):
+            return caesar_encyption(message, -shift)
+
+        decision = get_int_input("What do you want to do? - (1 - encrypt, 2 - decrypt):  ")
+        message = input("Enter your message: ")
+        if decision == 1:
+            print(f" Encrypted message with a step = 4: {caesar_encyption(message, shift)}")
+        elif decision == 2:
+            print(f" Decrypted message with a step = 4: {decrypt_message(message, shift)}")
+        else:
+            print(f"Invalid input. Try again!")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
