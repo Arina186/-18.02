@@ -335,6 +335,3 @@ while is_continue:
     elif user_choice == 8:
         print("До свидания!")
         is_continue = False
-
-
-
