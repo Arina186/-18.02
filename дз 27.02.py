@@ -40,11 +40,28 @@ while is_continue:
 
 
         numbers = [1, 5, 7, 16, 23, 28, 31, 38, 42]
-        print("Список чисел: ", numbers)
-        goal = get_int_input("Введите число из списка, которое хотели бы отобразить: ")
+        print("List of numbers: ", numbers)
+        goal = get_int_input("Enter the number from the list to be depicted: ")
         result = binary_search(numbers, 0, len(numbers) - 1, goal) # задаются лев и правая границы
         if result != -1:
-            print(f"Элемент {goal} найден на индексе: {result}")
+            print(f"Element {goal} has an index: {result}")
         else:
-            print("Элемент не найден")
+            print("Element is not found. Try again!")
+
+    elif user_choice == 2:
+        def from_decimal_to_binary(number):
+            binary_number = ""
+            while number > 0:
+                binary_number += str(number % 2)
+                number //= 2
+            return binary_number
+
+        number = get_int_input("Enter a decimal number: ")
+        result = from_decimal_to_binary(number)
+        print(f"Your number {number} from decimal to binary system: {result}")
+
+
+
+
+
 
