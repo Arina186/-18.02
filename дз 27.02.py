@@ -259,3 +259,26 @@ while is_continue:
         target = input("Enter your target message: ")
         total_steps = genetic_algorithm(target)
         print(f" Total steps: {total_steps} ")
+
+    elif user_choice == 10:
+        def transliterate(text):
+            transliterations = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
+                                'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y',
+                                'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p',
+                                'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'kh',
+                                'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ъ': '',
+                                'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'}
+            result = ""
+            for char in text.lower():
+                if char in transliterations:
+                    result += transliterations[char]
+                else:
+                    result += char
+                # 2 варик: result += transliterations.get(char, char)
+                # .get(что ищем, что вернуть если не нашли)- способ искать данные из словаря
+            return result
+
+
+        text = input("Enter your text message: ")
+        result = transliterate(text)
+        print(f" Your transliterated text: {result} ")
