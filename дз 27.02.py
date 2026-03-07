@@ -13,7 +13,8 @@ while is_continue:
           " 9 - Имитация «Генетического алгоритма»\n"
           "10 - Транслитератор\n"
           "11 - Поиск «Пиков» в списке\n"
-          "12 - exit\n")
+          "12 - игра на жизнь"
+          "13 - exit\n")
 
 
     def get_int_input(prompt):
@@ -298,5 +299,19 @@ while is_continue:
         print(f"Peaks: {result}")
 
     elif user_choice == 12:
+        import random, time, os
+        # time.sleep (0.1) замедлить программу, чтобы изменения видны были
+        # os- operational system - позволяет отправить команду прямо в терминал linux,
+        # clear - чистит экран перед следующим поколением
+        width, height = 40, 20
+        grid = [[random.randint(0, 1) for _ in range(width)] for _ in range(height)]
+        # 1 живой - #, 0 мертвый - пробел
+        try:
+            while True:
+                os.system("clear")
+                for row in grid:
+
+
+    elif user_choice == 13:
         print("До свидания!")
         is_continue = False
