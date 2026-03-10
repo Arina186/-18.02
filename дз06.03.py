@@ -47,8 +47,9 @@ while is_continue:
     elif user_choice == 2:
         @repeat(5)
         def some_task():
-           sequence_two = [-10, -6, 7, 4, 2, -4, 7, 1, -15, -18, 17, 62]
-           print(list(filter(lambda x: x > 0, sequence_two)))
+            sequence_two = [-10, -6, 7, 4, 2, -4, 7, 1, -15, -18, 17, 62]
+            print(list(filter(lambda x: x > 0, sequence_two)))
+
 
         some_task()
 
@@ -57,7 +58,19 @@ while is_continue:
             s = word.lower().replace(" ", "")
             return s == s[::-1]
 
+
         word = ["abccba", "hsdhee", "level", "fjkroeolel", "radar", "fjfkkk", "civic", "madam", "hffhfhfh"]
         print(list(filter(is_palindrome, word)))
 
+    elif user_choice == 4:
+        from functools import reduce
 
+        rooms = [
+            {"name": "Kitchen", "length": 6, "width": 4},
+            {"name": "Room 1", "length": 5.5, "width": 4.5},
+            {"name": "Room 2", "length": 5, "width": 4},
+            {"name": "Room 3", "length": 7, "width": 6.3},
+        ]
+        separate_square = list(map(lambda x: x["length"] * x["width"], rooms))
+        print(f"Площадь каждой комнаты: {separate_square} ")
+        print(f"Общая площадь квартиры: ", reduce(lambda x, y: x + y, separate_square))
