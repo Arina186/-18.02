@@ -148,3 +148,35 @@ while is_continue:
 
 
         calculator()
+
+    elif user_choice == 7:
+        from PIL import Image, ImageDraw
+
+
+        def apply_vague_picture(image_path, block_size):  # output- это уже будет преобразованная картинка
+            img = Image.open(image_path)  # откроется картинка
+            pixels = img.load()  # загрузит все пиксели из картинки
+            width, height = img.size  # тут скобок нет так как размер это характеристика а не действие
+            result = Image.new("RGB", (width, height))
+            draw = ImageDraw.Draw(result)
+            for i in range(0, width, block_size):
+                for j in range(0, height, block_size):
+                    box = (i, j, min(i + block_size, width), min(j + block_size, height))
+                    # Вырезаем кусочек и сжимаем его до 1 пикселя,
+                    # чтобы Pillow сам посчитал средний цвет (метод BOX)
+                    region = img.crop(box)
+                    avg_colour = region.resize((1, 1), resample=Image.Resampling.BOX).getpixel((0, 0))
+                    # Рисуем закрашенный квадрат этим цветом
+                    draw.rectangle(box, fill=avg_colour)
+
+            return result
+
+
+        res = apply_vague_picture("landscape.webp", 6)
+        res.show()
+        res.save("pixel_landscape.jpg")
+
+
+    elif user_choice == 8:
+        print("До свидания!")
+        is_continue = False
