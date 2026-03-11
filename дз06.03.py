@@ -111,4 +111,40 @@ while is_continue:
         except Exception as e:
             print(f"Occurred unexpected error: {e}")
 
+    elif user_choice == 6:
+        def calculator():
+            print("Calculator")
+            print("Enter 'exit' in order to leave")
+            while True:
+                try:
+                    user_inp = input("\nEnter the first number: ")
+                    if user_inp.lower() == 'exit': break
+                    num_one = float(user_inp)
+                    operation = input("Enter the operation(+, -, *, /): ")
+                    if operation.lower() == 'exit': break
+                    user_inp = input("Enter the second number: ")
+                    if user_inp.lower() == 'exit': break
+                    num_two = float(user_inp)
+                    if operation == '+':
+                        result = num_one + num_two
+                    elif operation == '-':
+                        result = num_one - num_two
+                    elif operation == '*':
+                        result = num_one * num_two
+                    elif operation == '/':
+                        result = num_one / num_two
+                    else:
+                        print("Error: Operation not supported!")
+                        continue
 
+                    print(f"Result: {num_one} {operation} {num_two} = {result}")
+
+                except (ValueError, TypeError):
+                    print("Error: Please, enter only numbers!")
+                except ZeroDivisionError:
+                    print("Error: You can't divide by zero!")
+                except Exception as e:
+                    print(f"Occurred unexpected error: {e}")
+
+
+        calculator()
