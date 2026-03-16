@@ -84,3 +84,27 @@ except Exception as e:
     print(f"Error: {e}")
 
 # task 4
+input_path = os.path.join("txts", "forbidden_words.txt")
+try:
+    with open(input_path, "r", encoding="utf-8") as file:
+        forbidden_words = file.read().lower().split()
+    file_name = input("Введите название файла(another_text.txt): ")
+    target = os.path.join("txts", file_name)
+    with open(target, "r", encoding="utf-8") as file:
+        text = file.read()
+
+    for word in forbidden_words:
+        word_len = len(word)
+        stars = "*" * word_len
+        # ищем где заменить в версии "нижнего регистра",
+        # но замену делаем в оригинальном тексте
+        index = text.lower().find(word)
+        while index != -1:
+            # Склеиваем текст: до найденного слова + звезды + после слова
+            text = text[:index] + stars + text[index + word_len:]
+            index = text.lower().find(word, index + word_len)
+    print(f"Result: {text}")
+except FileNotFoundError:
+    print("File was not found")
+except Exception as e:
+    print(f"Error: {e}")
