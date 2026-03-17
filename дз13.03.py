@@ -185,3 +185,163 @@ except FileNotFoundError:
     print(f"Ошибка: Файл {input_path} не найден.")
 except Exception as e:
     print(f"Error: {e}")
+
+# task 8
+is_continue = True
+while is_continue:
+    print(" 1 - преобразование в формат CSV\n"
+          " 2 - сохранение данных в CSV-файл\n"
+          " 3 - добавление информации о новом сотруднике в JSON-файл\n"
+          " 4 - добавление информации о новом сотруднике в CSV-файл\n"
+          " 5 - вывод информации о сотруднике по имени\n"
+          " 6 - фильтр по языку\n"
+          " 7 - фильтр по году\n"
+          " 8 - exit\n")
+
+
+    def get_int_input(prompt):
+        while True:
+            try:
+                int_num = int(input(prompt))
+                return int_num
+            except ValueError:
+                print("Enter only integer numbers!")
+
+
+    def get_letter_input(prompt):
+        while True:
+            name = input(prompt).strip()
+            # Убираем пробелы для проверки
+            if name.replace(" ", "").isalpha() and len(name) > 0:
+                return name
+            else:
+                print("Error! Name must contain only letters and cannot be empty")
+
+
+    from datetime import datetime
+
+
+    def get_birthday_input(prompt):
+        while True:
+            date_str = input(prompt).strip()
+            try:
+                # Пытаемся превратить строку в реальную дату по шаблону
+                datetime.strptime(date_str, "%d.%m.%Y")
+                return date_str
+            except ValueError:
+                print("Error: Use format: 11.08.2001 and enter a valid date!")
+
+
+    def get_height_input(prompt):
+        while True:
+            try:
+                hei = int(input(prompt))
+                if 50 <= hei <= 250:
+                    return hei
+                else:
+                    print("Height must be between 50cm and 250cm!")
+            except ValueError:
+                print("Enter only integer numbers!")
+
+
+    def get_weight_input(prompt):
+        while True:
+            try:
+                # Разрешаем вводить и точку, и запятую
+                raw_val = input(prompt).replace(',', '.')
+                val = float(raw_val)
+                if 35.0 <= val <= 200.0:
+                    return val
+                else:
+                    print("Weight must be between 35kg and 200kg!")
+            except ValueError:
+                print("Enter only numbers!")
+
+
+    user_choice = get_int_input("Enter action number: ")
+    import json
+    import csv
+    import os
+
+    if user_choice == 1:
+        def json_to_csv(input_path, output_path):
+            with open(input_path, "r") as json_file:
+                data = json.load(json_file)
+            # Проверяем, что данные — это список объектов
+            if not isinstance(data, list) or len(data) == 0:
+                print("Error: JSON must contain a list of objects.")
+                return
+            # делаем список языков программирования в строку
+            for item in data:
+                if "languages" in item and isinstance(item["languages"], list):
+                    item["languages"] = ", ".join(item["languages"])
+                    # получаем заголовки
+            head = data[0].keys()
+            # записываем в cvs
+            with open(output_path, "w", encoding='utf-8', newline='') as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=head)
+                writer.writeheader()
+                writer.writerows(data)
+
+
+        input_path = os.path.join("jsons", "employees.json")
+        output_path = "employees.csv"
+        json_to_csv(input_path, "employees.csv")
+
+    elif user_choice == 2:
+        def save_file_csv(input_path, output_path):
+            with open(input_path, "r", encoding="utf-8") as file:
+                data = json.load(file)
+                # Превращаем списки (например, languages) в строки через запятую
+                for row in data:
+                    for k, v in row.items():
+                        if isinstance(v, list):
+                            row[k] = ', '.join(map(str, v))
+                with open(output_path, 'w', encoding='utf-8', newline='') as f:
+                    writer = csv.DictWriter(f, fieldnames=data[0].keys())
+                    writer.writeheader()
+                    writer.writerows(data)
+
+
+        input_path = os.path.join("jsons", "employees.json")
+        output_path = os.path.join("csvs", "employees.csv")
+        save_file_csv(input_path, "employees.csv")
+
+    elif user_choice == 3:
+        def add_new_employee_to_json(input_path):
+            if os.path.exists(input_path):
+                with open(input_path, "r", encoding="utf-8") as file:
+                    try:
+                        data = json.load(file)
+                    except json.JSONDecodeError:
+                        data = []
+            else:
+                data = []
+
+            print("--- Ввод данных нового сотрудника ---")
+            name = get_letter_input("Enter employee's name and surname: ")
+            birthday = get_birthday_input("Enter employee's birthday(for example: 11.08.2001): ")
+            height = get_height_input("Enter employee's height(cm): ")
+            weight = get_weight_input("Enter employee's weight(kg): ")
+            car = get_letter_input("Does employee have a car? y/n: ")
+            have_car = True if car == "y" else False
+            languages = input("Enter employee's languages with commas: ")
+            languages = languages.split(",")
+            new_employee = {
+                "name": name,
+                "birthday": birthday,
+                "height": height,
+                "weight": weight,
+                "car": have_car,
+                "languages": languages
+            }
+            data.append(new_employee)
+            with open(input_path, "w", encoding="utf-8") as file:
+                json.dump(data, file, ensure_ascii=False, indent=4)
+            print(f"Employee {name} is successfully added tot the file!")
+
+
+        # ensure_ascii=False отвечает за то, как в JSON-файле будут выглядеть русские буквы,
+        # записывает символы как есть
+        input_path = os.path.join("jsons", "employees.json")
+        add_new_employee_to_json(input_path)
