@@ -11,7 +11,7 @@ while is_continue:
           " 9 - Имитация «Генетического алгоритма»\n"
           "10 - Транслитератор\n"
           "11 - Поиск «Пиков» в списке\n"
-          "12 - игра на жизнь"
+          "12 - игра на жизнь\n"
           "13 - exit\n")
 
 
@@ -298,6 +298,7 @@ while is_continue:
 
     elif user_choice == 12:
         import random, time, os
+
         # time.sleep (0.1) замедлить программу, чтобы изменения видны были
         # os- operational system - позволяет отправить команду прямо в терминал linux,
         # clear - чистит экран перед следующим поколением
@@ -308,7 +309,31 @@ while is_continue:
             while True:
                 os.system("clear")
                 for row in grid:
+                    print("".join("#" if cell else " " for cell in row))
 
+                new_grid = [[0 for _ in range(width)] for _ in range(height)]
+                for y in range(height):
+                    for x in range(width):
+                        # Считаем живых соседей (8 направлений)
+                        neighbours = 0
+                        for dy in [-1, 0, 1]:
+                            for dx in [-1, 0, 1]:
+                                if dy == 0 and dx == 0: continue
+                                # % позволяет клеткам появляться с другой стороны экрана
+                                if grid[(y + dy) % height][(x + dx) % width]:
+                                    neighbours += 1
+
+                        if grid[y][x] == 1:
+                            if neighbours in [2, 3]:
+                                new_grid[y][x] = 1  # выживает
+                        else:
+                            if neighbours == 3:
+                                new_grid[y][x] = 1  # Рождается
+
+                grid = new_grid
+                time.sleep(0.1)
+        except KeyboardInterrupt:
+            print("\nИгра остановлена.")
 
     elif user_choice == 13:
         print("До свидания!")
